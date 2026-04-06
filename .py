@@ -35,15 +35,20 @@ class MinhaJanela(QMainWindow):
 
         # A partir disso é apenas detecção de cliques
 
-        listener = mouse.Listener(on_click=self.mousePressEvent)
-        listener.start()
-    def mousePressEvent(self):
+        self.listener = mouse.Listener(on_click=self.clickHandler)
+        self.listener.start()
+
+    def clickHandler(self):
         if self.img_atual == 0:
             self.img_atual = 1
             self.imagem.setPixmap(self.imgs[self.img_atual])
         else:
             self.img_atual = 0
             self.imagem.setPixmap(self.imgs[self.img_atual])
+    
+    def closeEvent(self, event):
+        super().closeEvent(event)
+        self.listener.stop()
 
 
 # Só instanciando tudo para executar
