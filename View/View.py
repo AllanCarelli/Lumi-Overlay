@@ -1,10 +1,12 @@
 from PySide6.QtWidgets import *
 from PySide6 import QtCore
 from PySide6.QtGui import QPixmap
-from pynput import mouse
+from pathlib import Path
+
 
 class MinhaJanela(QMainWindow):
-    def __init__(self):
+    def __init__(self, first_image):
+        self.directory = Path(".")
         super().__init__()
 
         # Configuração das imagens para o overlay
@@ -25,7 +27,7 @@ class MinhaJanela(QMainWindow):
 
         # Cria um label para guardar a imagem (Pixmap pq ela é melhor para exibir)
         self.imagem = QLabel("")
-        self.imagem.setPixmap(QPixmap("teste.png"))
+        self.imagem.setPixmap(QPixmap(first_image))
         self.layout.addWidget(self.imagem,alignment=QtCore.Qt.AlignmentFlag.AlignRight | QtCore.Qt.AlignmentFlag.AlignBottom)
         
         # Deixar a janela transparente e por cima
@@ -35,24 +37,8 @@ class MinhaJanela(QMainWindow):
 
         # A partir disso é apenas detecção de cliques
 
-        self.listener = mouse.Listener(on_click=self.clickHandler)
-        self.listener.start()
-
-    def clickHandler(self):
-        if self.img_atual == 0:
-            self.img_atual = 1
-            self.imagem.setPixmap(self.imgs[self.img_atual])
-        else:
-            self.img_atual = 0
-            self.imagem.setPixmap(self.imgs[self.img_atual])
-    
-    def closeEvent(self, event):
-        super().closeEvent(event)
-        self.listener.stop()
-
+    def changeImage(self,image):
+            self.imagem.setPixmap(QPixmap(image))
 
 # Só instanciando tudo para executar
-app = QApplication([])
-janela = MinhaJanela()
-janela.show()
-app.exec()
+
