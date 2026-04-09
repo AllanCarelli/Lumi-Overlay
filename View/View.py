@@ -1,17 +1,14 @@
 from PySide6.QtWidgets import *
 from PySide6 import QtCore
 from PySide6.QtGui import QPixmap
-from pathlib import Path
 
 
 class MinhaJanela(QMainWindow):
-    def __init__(self, first_image):
-        self.directory = Path(".")
+    def __init__(self, model, controller):
         super().__init__()
 
-        # Configuração das imagens para o overlay
-        self.img_atual = 0
-        self.imgs = [QPixmap("teste.png"),QPixmap("teste2.png")]
+        self.model = model
+        self.controller = controller
 
         # Pega um objeto que representa as características da tela
         screen = self.screen()
@@ -27,7 +24,7 @@ class MinhaJanela(QMainWindow):
 
         # Cria um label para guardar a imagem (Pixmap pq ela é melhor para exibir)
         self.imagem = QLabel("")
-        self.imagem.setPixmap(QPixmap(first_image))
+        self.imagem.setPixmap(QPixmap(self.model.getImage()))
         self.layout.addWidget(self.imagem,alignment=QtCore.Qt.AlignmentFlag.AlignRight | QtCore.Qt.AlignmentFlag.AlignBottom)
         
         # Deixar a janela transparente e por cima
@@ -39,6 +36,4 @@ class MinhaJanela(QMainWindow):
 
     def changeImage(self,image):
             self.imagem.setPixmap(QPixmap(image))
-
-# Só instanciando tudo para executar
 

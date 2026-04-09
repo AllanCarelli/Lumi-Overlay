@@ -2,20 +2,24 @@ from View.View import MinhaJanela
 from Model.Model import Model
 from Controller.Controller import MouseReceiver
 from PySide6.QtWidgets import QApplication
+import sys
 
 class Main:
     
     def __init__(self):
-        app = QApplication([])
-        self.view = MinhaJanela()
-        self.view.show()
-        
-
         self.model = Model()
 
-        self.controller = MouseReceiver(self.view,self.model)
+        
+
+        self.controller = MouseReceiver(self.model)
+
+        self.view = MinhaJanela(self.model,self.controller)
+        self.view.show()
+
         app.aboutToQuit.connect(self.controller.stop)
 
-        app.exec()
+        
 if __name__ == "__main__":
+    app = QApplication(sys.argv)
     Main()
+    app.exec()
