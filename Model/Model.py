@@ -4,7 +4,7 @@ class Model:
     def __init__(self):
         self.__assets_dir = Path(".").absolute() / "Assets"
         self.__counter = 0
-        self.__currentImage = self.__assets_dir / "idle.png"
+        self.__currentImage = f"/Assets/idle.png"
         self.__callbackImage = []
     def setNewImage(self,direction):
         if self.__counter == 0:
@@ -16,7 +16,7 @@ class Model:
         elif self.__counter == 1:
             self.__counter = 0
             image = "idle.png"
-        self.__currentImage = self.__assets_dir / image
+        self.__currentImage = f'/Assets/{image}'
         self.__call(self.__callbackImage)
 
     def addCallbackImage(self,action):

@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import *
 from PySide6 import QtCore
 from PySide6.QtGui import QPixmap
+from Assets import resources
 
 
 class MinhaJanela(QMainWindow):
@@ -36,5 +37,5 @@ class MinhaJanela(QMainWindow):
     def changeImage(self):
             self.imagem.setPixmap(self.image(self.model.getImage()))
     def image(self,image_link):
-        return QPixmap(image_link).scaled(QtCore.QSize(150,150),aspectMode=QtCore.Qt.AspectRatioMode.KeepAspectRatio)
+        return QPixmap(f":{image_link}").scaled(QtCore.QSize(150,150),aspectMode=QtCore.Qt.AspectRatioMode.KeepAspectRatio)
 

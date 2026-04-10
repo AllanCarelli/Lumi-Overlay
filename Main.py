@@ -4,6 +4,7 @@ from Controller.Controller import MouseReceiver
 from PySide6.QtWidgets import QApplication
 import sys
 
+
 class Main:
     
     def __init__(self):
