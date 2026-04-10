@@ -2,20 +2,23 @@ from pathlib import Path
 
 class Model:
     def __init__(self):
-        self.assets_dir = Path(".").absolute() / "Assets"
-        self.counter = 0
-        self.currentImage = self.assets_dir / "teste.png"
-        self.callback = []
+        self.__assets_dir = Path(".").absolute() / "Assets"
+        self.__counter = 0
+        self.__currentImage = self.__assets_dir / "teste.png"
+        self.__callback = []
     def setNewImage(self):
-        if self.counter == 0:
-            self.counter = 1
+        if self.__counter == 0:
+            self.__counter = 1
             image = "teste2.png"
-        elif self.counter == 1:
-            self.counter = 0
+        elif self.__counter == 1:
+            self.__counter = 0
             image = "teste.png"
-        self.currentImage = self.assets_dir / image
+        self.__currentImage = self.__assets_dir / image
+        self.call()
     def getImage(self):
-        return self.currentImage
-    def callback(self):
-        for callback in self.callback:
+        return self.__currentImage
+    def addCallback(self,action):
+        self.__callback.append(action)
+    def call(self):
+        for callback in self.__callback:
             callback()

@@ -16,6 +16,8 @@ class Main:
         self.view = MinhaJanela(self.model,self.controller)
         self.view.show()
 
+        self.model.addCallback(self.view.changeImage)
+
         app.aboutToQuit.connect(self.controller.stop)
 
         

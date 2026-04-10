@@ -32,8 +32,8 @@ class MinhaJanela(QMainWindow):
         self.setWindowFlag(QtCore.Qt.WindowType.FramelessWindowHint)
         self.setWindowFlag(QtCore.Qt.WindowType.WindowStaysOnTopHint)
 
-        # A partir disso é apenas detecção de cliques
 
-    def changeImage(self,image):
-            self.imagem.setPixmap(QPixmap(image))
+
+    def changeImage(self):
+            self.imagem.setPixmap(QPixmap(self.model.getImage()))
 
