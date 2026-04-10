@@ -9,8 +9,6 @@ class Main:
     def __init__(self):
         self.model = Model()
 
-        
-
         self.controller = MouseReceiver(self.model)
 
         self.view = MinhaJanela(self.model)

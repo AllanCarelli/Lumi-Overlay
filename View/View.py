@@ -23,7 +23,7 @@ class MinhaJanela(QMainWindow):
 
         # Cria um label para guardar a imagem (Pixmap pq ela é melhor para exibir)
         self.imagem = QLabel("")
-        self.imagem.setPixmap(QPixmap(self.model.getImage()))
+        self.imagem.setPixmap(self.image(self.model.getImage()))
         self.layout.addWidget(self.imagem,alignment=QtCore.Qt.AlignmentFlag.AlignRight | QtCore.Qt.AlignmentFlag.AlignBottom)
         
         # Deixar a janela transparente e por cima
@@ -34,5 +34,7 @@ class MinhaJanela(QMainWindow):
 
 
     def changeImage(self):
-            self.imagem.setPixmap(QPixmap(self.model.getImage()))
+            self.imagem.setPixmap(self.image(self.model.getImage()))
+    def image(self,image_link):
+        return QPixmap(image_link).scaled(QtCore.QSize(150,150),aspectMode=QtCore.Qt.AspectRatioMode.KeepAspectRatio)
 
