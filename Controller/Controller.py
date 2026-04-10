@@ -8,7 +8,10 @@ class MouseReceiver:
         self.listener.start()
     def stop(self):
         self.listener.stop()
-    def clickHandler(self, *args):
-        self.model.setNewImage()
+    def clickHandler(self, x,y,button,*args):
+        if button == mouse.Button.left:
+            self.model.setNewImage("left")
+        elif button == mouse.Button.right:
+            self.model.setNewImage("right")
 
         
