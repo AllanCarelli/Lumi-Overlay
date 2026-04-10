@@ -4,11 +4,10 @@ from PySide6.QtGui import QPixmap
 
 
 class MinhaJanela(QMainWindow):
-    def __init__(self, model, controller):
+    def __init__(self, model):
         super().__init__()
 
         self.model = model
-        self.controller = controller
 
         # Pega um objeto que representa as características da tela
         screen = self.screen()

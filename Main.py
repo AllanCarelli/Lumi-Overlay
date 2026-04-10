@@ -13,10 +13,10 @@ class Main:
 
         self.controller = MouseReceiver(self.model)
 
-        self.view = MinhaJanela(self.model,self.controller)
+        self.view = MinhaJanela(self.model)
         self.view.show()
 
-        self.model.addCallback(self.view.changeImage)
+        self.model.addCallbackImage(self.view.changeImage)
 
         app.aboutToQuit.connect(self.controller.stop)
 
