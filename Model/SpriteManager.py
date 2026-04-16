@@ -6,14 +6,15 @@ class SpriteManager:
         self.buffer = io.BytesIO()
         self.ballList = []
         self.img = Image.open("Assets\\Villain_Lumi.png")
-        self.coordinates = {"Talking": (204,328,241,384),
-                            "Holding": (259,387,307,443),
+        self.coordinates = {"Talking": [(204,328,241,384)],
+                            "Holding": [(259,387,307,443)],
                             "Ball": [(647,462,695,511),(584,463,632,512),(711,462,759,511)]}
+        
         self.talkingImage = self.img.crop(self.coordinates["Talking"])
         self.holdingImage = self.img.crop(self.coordinates["Holding"])
 
-        for images in self.coordinates["Ball"]:
-            ball = self.img.crop(images)
+        for frames in self.coordinates["Ball"]:
+            ball = self.img.crop(frames)
             ball = ImageOps.scale(ball,1.3)
             self.ballList.append(ball)
 
@@ -22,29 +23,36 @@ class SpriteManager:
         
         self.holdingImage.save(self.buffer, format="GIF")
         self.talkingImage.save(self.buffer, format="GIF")
-        
         self.ballList[0].save(self.buffer, save_all=True, append_images=self.ballList[1:],duration=50,loop=0,format="GIF")
+
         self.state = "Holding"
         self.callback = []
+
+    
+    
+    def cleanStream(self):
+        match self.state:
+            case "Talking":
+                id = 0
+            case "Holding":
+                id = 1
+            case "Ball":
+                id = 2
+        self.images[id][0].save(self.buffer,append_images=self.images[id][1:],duration=50,loop=0,format="GIF",optmize=True)
+        
+    def saveImage(self):
+        self.images = []
+        for images in self.coordinates:
+            frameList = []
+            for frames in images:
+                frm = self.img.crop(frames)
+                frm = ImageOps.scale(frm,1.3)
+                frameList.append(frm)
+            self.images.append(frameList)
 
     def getImage(self):
         self.buffer.seek(0)
         return self.buffer.getvalue()
-    
-    def cleanStream(self):
-        if self.state == "Talking":
-            self.buffer.seek(0)
-            self.buffer.truncate(0)
-            self.talkingImage.save(self.buffer, format="GIF")
-        elif self.state == "Holding":
-            self.buffer.seek(0)
-            self.buffer.truncate(0)
-            self.holdingImage.save(self.buffer, format="GIF")
-        elif self.state == "Ball":
-            self.buffer.seek(0)
-            self.buffer.truncate(0)
-            self.ballList[0].save(self.buffer,append_images=self.ballList[1:],duration=50,loop=0,format="GIF",optmize=True)
-        
 
     def setState(self,state):
         self.state = state
