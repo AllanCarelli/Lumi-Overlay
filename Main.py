@@ -1,24 +1,23 @@
 from View.View import MinhaJanela
-from Model.Model import Model
-from Controller.Controller import MouseReceiver
+from Controller.Controller import Controller
 from PySide6.QtWidgets import QApplication
 import sys
+from Model.SpriteManager import SpriteManager
 
 
 class Main:
     
     def __init__(self):
-        self.model = Model()
+        self.spriteManager = SpriteManager()
+        
+        self.controller = Controller(self.spriteManager)
+        
 
-        self.controller = MouseReceiver(self.model)
-
-        self.view = MinhaJanela(self.model)
+        self.view = MinhaJanela(self.spriteManager,self.controller)
         self.view.show()
 
-        self.model.addCallbackImage(self.view.changeImage)
-
-        app.aboutToQuit.connect(self.controller.stop)
-
+        self.spriteManager.addCallback(self.view.changeImage)
+        
         
 if __name__ == "__main__":
     app = QApplication(sys.argv)

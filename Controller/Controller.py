@@ -1,17 +1,9 @@
-from pynput import mouse
-
-class MouseReceiver:
-    def __init__(self, model):
+class Controller:
+    def __init__(self,spriteManager):
         super().__init__()
-        self.model = model
-        self.listener = mouse.Listener(on_click=self.clickHandler)
-        self.listener.start()
-    def stop(self):
-        self.listener.stop()
-    def clickHandler(self, x,y,button,*args):
-        if button == mouse.Button.left:
-            self.model.setNewImage("left")
-        elif button == mouse.Button.right:
-            self.model.setNewImage("right")
+        self.spriteManager = spriteManager
+    def changeImage(self,state):
+        self.spriteManager.setState(state)
+
 
         
