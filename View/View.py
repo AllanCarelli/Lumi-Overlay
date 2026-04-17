@@ -6,15 +6,16 @@ from PySide6.QtGui import QPixmap, QMovie
 
 
 class MinhaJanela(QMainWindow):
-    def __init__(self,spriteManager,controller):
+    def __init__(self,spriteManager,gravityForce,controller):
         super().__init__()
 
-        # guarda as referências do spritemanager e do model
+        # guarda as referências do spritemanager, gravityforce e do model
         self.spriteManager = spriteManager
         self.controller = controller
+        self.gravityForce = gravityForce
 
 
-        # DISGRAÇA VOU TER QUE FAZER ESSA JANELA SER MOVÍVEL NA RAÇA
+        # (fazendo faxina no view)
         screen = self.screen()
 
         self.timer = QtCore.QTimer()
@@ -61,7 +62,6 @@ class MinhaJanela(QMainWindow):
         self.buffer = QtCore.QBuffer(self.byteArray)
         self.img = QMovie(self.buffer)
         self.img.setCacheMode(QMovie.CacheMode.CacheAll)
-        # self.img.setScaledSize(QtCore.QSize(50,50))
         return self.img
     
     def mousePressEvent(self, event):
