@@ -1,11 +1,20 @@
 from PIL import Image, ImageOps
 import io
+import os, sys
+
+def rpath(relative_path):
+    try:
+        base = sys._MEIPASS
+    except Exception:
+        base = os.path.abspath(".")
+
+    return os.path.join(base,relative_path)
 
 class SpriteManager:
     def __init__(self):
         self.buffer = io.BytesIO()
         self.ballList = []
-        self.img = Image.open("Assets\\Villain_Lumi.png")
+        self.img = Image.open(rpath("Assets\\Villain_Lumi.png"))
         self.coordinates = {"Talking": (204,328,241,384),
                             "Holding": (259,387,307,443),
                             "Ball": [(647,462,695,511),(584,463,632,512),(711,462,759,511)]}
