@@ -17,6 +17,9 @@ class MinhaJanela(QMainWindow):
         # DISGRAÇA VOU TER QUE FAZER ESSA JANELA SER MOVÍVEL NA RAÇA
         screen = self.screen()
 
+        self.screen_h_f = screen.geometry().height() - 73
+        self.screen_w_f = screen.geometry().width() - 49
+
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.gravity)
 
@@ -97,13 +100,13 @@ class MinhaJanela(QMainWindow):
     def gravity(self):
         if self.pressing:
             self.timer.stop()
-        if self.imagem.pos().y() <= 966:
+        if self.imagem.pos().y() <= self.screen_h_f:
             if self.imagem.pos().x() <= 0:
                 self.speedX = self.speedX * -1 
                 self.imagem.move(QtCore.QPoint(0,self.imagem.pos().y() + self.dislocation))
-            elif self.imagem.pos().x() >= 1876:
+            elif self.imagem.pos().x() >= self.screen_w_f:
                 self.speedX = self.speedX * -1    
-                self.imagem.move(QtCore.QPoint(1868,self.imagem.pos().y() + self.dislocation))
+                self.imagem.move(QtCore.QPoint(self.screen_w_f,self.imagem.pos().y() + self.dislocation))
             self.imagem.move(QtCore.QPoint(self.imagem.pos().x() + self.speedX,self.imagem.pos().y() + self.dislocation))
             self.dislocation += 1
             if self.speedX > 0:
@@ -113,6 +116,6 @@ class MinhaJanela(QMainWindow):
         
             
         else:
-            self.imagem.move(QtCore.QPoint(self.imagem.pos().x(),966))
+            self.imagem.move(QtCore.QPoint(self.imagem.pos().x(),self.screen_h_f))
             self.controller.changeImage("Talking")
             self.timer.stop()
